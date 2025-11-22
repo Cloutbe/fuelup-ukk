@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Fuel Up - Coffee Shop')</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
     </style>
-    
+
     @stack('styles')
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
@@ -33,8 +33,7 @@
 
             <!-- Links Tengah -->
             <div class="hidden md:flex space-x-8 font-medium text-gray-600 text-sm">
-                <!-- Link Home berubah arah tergantung status login -->
-                <a href="{{ Auth::check() ? url('/dashboard') : url('/') }}" class="{{ request()->is('/') || request()->is('dashboard') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500 transition' }}">Home</a>
+                <a href="{{ Auth::check() ? url('/') : url('/') }}" class="{{ request()->is('/') || request()->is('dashboard') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500 transition' }}">Home</a>
                 <a href="{{ url('/menu') }}" class="{{ request()->is('menu') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500 transition' }}">Menu</a>
                 <a href="{{ url('/about') }}" class="{{ request()->is('about') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500 transition' }}">About</a>
                 <a href="{{ url('/contact') }}" class="{{ request()->is('contact') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500 transition' }}">Contact</a>
@@ -42,20 +41,26 @@
 
             <!-- Menu Kanan (Kondisional) -->
             <div class="flex items-center gap-4">
-                
+
                 {{-- JIKA SUDAH LOGIN --}}
                 @auth
-                    <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition text-sm font-medium mr-2">
+                    <a href="{{ route('orders.index') }}" class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition text-sm font-medium mr-2">
                         <i class="fas fa-clipboard-list text-lg"></i>
                         <span class="hidden md:inline">Orders</span>
                     </a>
 
-                    <a href="{{ url('/cart') }}" class="relative text-gray-600 hover:text-blue-600 transition mr-4">
-                        <i class="fas fa-shopping-cart text-lg"></i>
-                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition text-sm font-medium mr-2" title="Profil Saya">
+                        <i class="fas fa-user-circle text-lg"></i>
+                        <span class="hidden md:inline">Profil</span>
                     </a>
 
-                    <!-- Form Logout (Demi Keamanan menggunakan POST) -->
+                    <a href="{{ url('/cart') }}" class="relative text-gray-600 hover:text-blue-600 transition mr-4">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <!-- Contoh badge statis, nanti bisa didinamiskan -->
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">!</span>
+                    </a>
+
+                    <!-- Form Logout -->
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" class="border border-gray-300 text-gray-600 px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition flex items-center gap-2">
@@ -102,7 +107,7 @@
             <div>
                 <h4 class="text-white font-bold mb-6">Quick Links</h4>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="{{ url('/dashboard') }}" class="hover:text-blue-500 transition">Home</a></li>
+                    <li><a href="{{ url('/') }}" class="hover:text-blue-500 transition">Home</a></li>
                     <li><a href="{{ url('/menu') }}" class="hover:text-blue-500 transition">Menu</a></li>
                     <li><a href="{{ url('/about') }}" class="hover:text-blue-500 transition">About Us</a></li>
                     <li><a href="{{ url('/contact') }}" class="hover:text-blue-500 transition">Contact</a></li>

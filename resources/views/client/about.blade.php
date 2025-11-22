@@ -1,82 +1,66 @@
-@extends('layouts.user')  {{-- Memanggil Layout --}}
+@extends('layouts.user')
 
-@section('title', 'Home - Fuel Up') {{-- Mengubah Judul Tab Browser --}}
+@section('title', 'Tentang Kami - Fuel Up')
 
 @section('content')
-    <header class="header-bg text-white py-24 relative z-10 text-center bg-gradient-to-r from-blue-500 to-blue-300">
-        <div class="container mx-auto px-6">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">About FUEL UP</h1>
-            <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-                We're more than just a coffee shop – we're a community of coffee lovers dedicated to delivering the perfect cup, every time.
-            </p>
-        </div>
-    </header>
+<!-- Hero Section -->
+<div class="bg-white">
+    <div class="container mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Cerita Kami</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-8">
+            Bermula dari kecintaan pada biji kopi lokal, Fuel Up Coffee hadir untuk menemani setiap langkah produktifmu.
+        </p>
+        <img src="https://images.unsplash.com/photo-1556740767-414a9c4860c1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8Y29mZmVlfGVufDB8fDB8fHww" class="rounded-xl shadow-xl mx-auto w-full max-w-4xl h-96 object-cover">
+    </div>
+</div>
 
-    <section class="py-20 container mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Story</h2>
-                <div class="space-y-4 text-gray-600 leading-relaxed text-justify">
-                    <p>
-                        Founded in 2020, FUEL UP began with a simple mission: to serve exceptional coffee that fuels your day and brings people together. What started as a small neighborhood cafe has grown into a beloved community gathering place.
-                    </p>
-                    <p>
-                        We source our beans from sustainable farms around the world, working directly with farmers who share our commitment to quality and environmental responsibility. Every cup we serve is a testament to our dedication to excellence.
-                    </p>
-                    <p>
-                        Our expert baristas are trained in the art and science of coffee making, ensuring that each beverage is crafted to perfection. Whether you're a coffee connoisseur or just beginning your coffee journey, we're here to fuel your passion.
-                    </p>
+<!-- Values Section (Statis) -->
+<div class="bg-gray-50 py-16">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800">Kenapa Fuel Up?</h2>
+            <p class="text-gray-500 mt-2">Komitmen kami untuk kualitas terbaik.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Item 1 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition text-center">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fas fa-leaf"></i>
                 </div>
-            </div>
-            
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" alt="Our Coffee Shop Interior" class="rounded-3xl shadow-2xl w-full object-cover h-[400px]">
-                <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-100 rounded-full -z-10"></div>
-                <div class="absolute -top-4 -left-4 w-24 h-24 bg-blue-50 rounded-full -z-10"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Values</h2>
-                <p class="text-gray-500">What makes FUEL UP special</p>
+                <h3 class="font-bold text-lg mb-2">100% Kopi Lokal</h3>
+                <p class="text-gray-500 text-sm">Kami bekerja sama langsung dengan petani kopi di Gayo dan Toraja.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($values as $val)
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition text-center">
-                    <div class="w-16 h-16 mx-auto {{ $val['bg'] }} {{ $val['color'] }} rounded-xl flex items-center justify-center text-3xl mb-6">
-                        <i class="fas fa-{{ $val['icon'] }}"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $val['title'] }}</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        {{ $val['desc'] }}
-                    </p>
+            <!-- Item 2 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition text-center">
+                <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fas fa-fire"></i>
                 </div>
-                @endforeach
+                <h3 class="font-bold text-lg mb-2">Fresh Roasted</h3>
+                <p class="text-gray-500 text-sm">Biji kopi dipanggang setiap minggu untuk menjaga aroma terbaik.</p>
             </div>
-        </div>
-    </section>
 
-    <section class="py-20 container mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-2">Meet Our Team</h2>
-            <p class="text-gray-500">The passionate people behind your favorite coffee</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-            @foreach($team as $member)
-            <div class="text-center group">
-                <div class="overflow-hidden rounded-2xl mb-6 shadow-lg relative">
-                    <img src="{{ $member['image'] }}" alt="{{ $member['name'] }}" class="w-full h-80 object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+            <!-- Item 3 -->
+            <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition text-center">
+                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fas fa-mug-hot"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900">{{ $member['name'] }}</h3>
-                <p class="text-blue-500 font-medium text-sm">{{ $member['role'] }}</p>
+                <h3 class="font-bold text-lg mb-2">Barista Ahli</h3>
+                <p class="text-gray-500 text-sm">Setiap cangkir diseduh dengan teknik presisi oleh tim profesional kami.</p>
             </div>
-            @endforeach
         </div>
-    </section>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="bg-blue-600 text-white py-16">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-4">Siap Mencoba Kopi Terbaik?</h2>
+        <p class="mb-8 text-blue-100">Kunjungi outlet kami atau pesan sekarang juga!</p>
+        <a href="{{ route('home') }}" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition shadow-lg">
+            Lihat Menu
+        </a>
+    </div>
+</div>
 @endsection

@@ -1,107 +1,211 @@
-@extends('layouts.admin') {{-- Memanggil Master Layout Admin --}}
+@extends('layouts.admin')
 
-@section('title', 'Dashboard - Fuel Up Admin')
+@section('title', 'Dashboard Admin')
 
 @section('content')
-    {{-- JUDUL HALAMAN --}}
-    <div class="mb-6 flex justify-between items-end">
+<div class="container mx-auto">
+
+    <div class="mb-8 flex justify-between items-end">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Overview</h1>
-            <p class="text-gray-500 text-sm">Welcome back, here is what's happening today.</p>
+            <h2 class="text-2xl font-bold text-gray-800">👋 Halo, Admin!</h2>
+            <p class="text-gray-500">Selamat datang kembali di panel kontrol Fuel Up Coffee.</p>
         </div>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
-            <i class="fas fa-plus mr-2"></i> Add New Product
-        </button>
+        <!-- TOMBOL DOWNLOAD LAPORAN -->
+        <a href="{{ route('admin.reports.pdf') }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-md transition flex items-center gap-2">
+            <i class="fas fa-file-pdf"></i> Download Laporan Bulanan
+        </a>
     </div>
 
-    {{-- KARTU STATISTIK --}}
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <!-- Total Pendapatan -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl">
-                <i class="fas fa-dollar-sign"></i>
-            </div>
+    <!-- STATISTIC CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+        <!-- Card 1: Pendapatan -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500 flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-xs font-bold uppercase">Total Revenue</p>
-                <h3 class="text-2xl font-bold text-gray-800">$12,450</h3>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Total Pendapatan</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
+            </div>
+            <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                <i class="fas fa-money-bill-wave text-xl"></i>
             </div>
         </div>
 
-        <!-- Total Pesanan -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
+        <!-- Card 2: Total Pesanan -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500 flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-xs font-bold uppercase">Total Orders</p>
-                <h3 class="text-2xl font-bold text-gray-800">1,240</h3>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Total Pesanan</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalOrders }}</p>
+            </div>
+            <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                <i class="fas fa-shopping-bag text-xl"></i>
             </div>
         </div>
 
-        <!-- Total Produk -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl">
-                <i class="fas fa-coffee"></i>
-            </div>
+        <!-- Card 3: Total Produk -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500 flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-xs font-bold uppercase">Total Products</p>
-                <h3 class="text-2xl font-bold text-gray-800">45</h3>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Total Menu</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalProducts }}</p>
+            </div>
+            <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                <i class="fas fa-coffee text-xl"></i>
             </div>
         </div>
 
-        <!-- Pelanggan -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
-                <i class="fas fa-users"></i>
-            </div>
+        <!-- Card 4: Perlu Diproses -->
+        <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-yellow-500 flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-xs font-bold uppercase">Customers</p>
-                <h3 class="text-2xl font-bold text-gray-800">890</h3>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Butuh Aksi</p>
+                <p class="text-2xl font-bold text-gray-800 mt-1">{{ $pendingOrders }}</p>
+            </div>
+            <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full">
+                <i class="fas fa-bell text-xl"></i>
             </div>
         </div>
     </div>
 
-    {{-- TABEL PESANAN TERBARU (CONTOH) --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-            <h3 class="font-bold text-gray-800">Recent Orders</h3>
-            <a href="#" class="text-blue-600 text-sm font-bold hover:underline">View All</a>
+    <!-- CHARTS SECTION (BARU) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+        <!-- Chart 1: Penjualan Bulanan -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">📈 Grafik Penjualan Tahun Ini</h3>
+            <canvas id="salesChart"></canvas>
+        </div>
+
+        <!-- Chart 2: Status Pesanan -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">🍩 Statistik Status Pesanan</h3>
+            <div class="h-64 flex justify-center">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RECENT ORDERS TABLE -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <h3 class="text-lg font-bold text-gray-800">⏳ Pesanan Terbaru</h3>
+            <a href="{{ route('admin.orders.index') }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Lihat Semua &rarr;</a>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                    <tr>
-                        <th class="px-6 py-3">Order ID</th>
-                        <th class="px-6 py-3">Customer</th>
-                        <th class="px-6 py-3">Status</th>
-                        <th class="px-6 py-3">Date</th>
-                        <th class="px-6 py-3 text-right">Amount</th>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                        <th class="p-4 font-semibold">Order ID</th>
+                        <th class="p-4 font-semibold">Pelanggan</th>
+                        <th class="p-4 font-semibold">Total</th>
+                        <th class="p-4 font-semibold">Status</th>
+                        <th class="p-4 font-semibold text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="bg-white border-b hover:bg-blue-50 transition">
-                        <td class="px-6 py-4 font-medium text-blue-600">#ORD-001</td>
-                        <td class="px-6 py-4 font-medium text-gray-900">Budi Santoso</td>
-                        <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-bold">Completed</span></td>
-                        <td class="px-6 py-4">20 Nov 2023</td>
-                        <td class="px-6 py-4 text-right font-bold text-gray-800">$12.50</td>
+                <tbody class="divide-y divide-gray-100 text-sm">
+                    @forelse($latestOrders as $order)
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="p-4 font-bold text-gray-600">#{{ $order->id }}</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-900">{{ $order->user->name }}</div>
+                            <div class="text-xs text-gray-500">{{ $order->created_at->diffForHumans() }}</div>
+                        </td>
+                        <td class="p-4 font-bold text-blue-600">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+                        <td class="p-4">
+                            @php
+                                $colors = [
+                                    'pending' => 'bg-yellow-100 text-yellow-800',
+                                    'awaiting_payment' => 'bg-orange-100 text-orange-800',
+                                    'paid' => 'bg-green-100 text-green-800',
+                                    'done' => 'bg-blue-100 text-blue-800',
+                                    'cancelled' => 'bg-red-100 text-red-800',
+                                ];
+                            @endphp
+                            <span class="px-2 py-1 rounded-full text-xs font-bold {{ $colors[$order->status] ?? 'bg-gray-100' }}">
+                                {{ ucfirst($order->status) }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <a href="{{ route('admin.orders.show', $order->id) }}" class="text-gray-400 hover:text-blue-600 transition">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
                     </tr>
-                    <tr class="bg-white border-b hover:bg-blue-50 transition">
-                        <td class="px-6 py-4 font-medium text-blue-600">#ORD-002</td>
-                        <td class="px-6 py-4 font-medium text-gray-900">Siti Aminah</td>
-                        <td class="px-6 py-4"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-bold">Pending</span></td>
-                        <td class="px-6 py-4">20 Nov 2023</td>
-                        <td class="px-6 py-4 text-right font-bold text-gray-800">$8.00</td>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-gray-500 italic">Belum ada pesanan terbaru.</td>
                     </tr>
-                    <tr class="bg-white border-b hover:bg-blue-50 transition">
-                        <td class="px-6 py-4 font-medium text-blue-600">#ORD-003</td>
-                        <td class="px-6 py-4 font-medium text-gray-900">John Doe</td>
-                        <td class="px-6 py-4"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold">Cancelled</span></td>
-                        <td class="px-6 py-4">19 Nov 2023</td>
-                        <td class="px-6 py-4 text-right font-bold text-gray-800">$15.00</td>
-                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+
+<!-- SCRIPT CHART.JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // --- 1. CHART PENJUALAN BULANAN (LINE) ---
+    const ctxSales = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctxSales, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+            datasets: [{
+                label: 'Pendapatan (Rp)',
+                data: @json($monthlySales), // Ambil data dari Controller
+                borderColor: '#3B82F6', // Warna Garis (Blue-500)
+                backgroundColor: 'rgba(59, 130, 246, 0.1)', // Warna Arsiran
+                borderWidth: 2,
+                tension: 0.4, // Biar garisnya melengkung halus
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID'); // Format Rupiah di sumbu Y
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // --- 2. CHART STATUS ORDER (DOUGHNUT) ---
+    const ctxStatus = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctxStatus, {
+        type: 'doughnut',
+        data: {
+            labels: ['Belum Bayar', 'Lunas/Selesai', 'Dibatalkan'],
+            datasets: [{
+                data: [
+                    {{ $orderStats['pending'] }},
+                    {{ $orderStats['paid'] }},
+                    {{ $orderStats['cancelled'] }}
+                ],
+                backgroundColor: [
+                    '#F59E0B', // Kuning (Pending)
+                    '#10B981', // Hijau (Paid)
+                    '#EF4444'  // Merah (Cancelled)
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
 @endsection

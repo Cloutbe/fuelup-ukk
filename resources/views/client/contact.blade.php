@@ -1,74 +1,74 @@
-@extends('layouts.user')  {{-- Memanggil Layout --}}
+@extends('layouts.user')
 
-@section('title', 'Home - Fuel Up') {{-- Mengubah Judul Tab Browser --}}
+@section('title', 'Hubungi Kami - Fuel Up')
 
 @section('content')
-    <div class="bg-blue-600 py-20 text-center text-white">
-        <h1 class="text-4xl font-bold mb-4">Get in Touch</h1>
-        <p class="text-blue-100 max-w-xl mx-auto px-4">
-            Have questions or feedback? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-        </p>
+<!-- Header Section -->
+<div class="bg-white shadow-sm py-12">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Hubungi Kami</h1>
+        <p class="text-gray-500">Kami siap mendengar masukan dan pertanyaanmu.</p>
     </div>
+</div>
 
-    <main class="container mx-auto px-6 -mt-10 mb-20">
-        <div class="grid md:grid-cols-5 gap-8">
-            
-            <div class="md:col-span-3 bg-white rounded-2xl shadow-xl p-8 md:p-10">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h2>
-                
-                <form action="#" method="POST">
-                    @csrf <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Name</label>
-                        <input type="text" placeholder="Your name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:bg-white transition">
-                    </div>
+<div class="container mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Email</label>
-                        <input type="email" placeholder="you@example.com" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:bg-white transition">
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Message</label>
-                        <textarea rows="5" placeholder="How can we help you?" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:bg-white transition"></textarea>
-                    </div>
-
-                    <button type="button" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
-                        <i class="fas fa-paper-plane mr-2"></i> Send Message
-                    </button>
-                </form>
+        <!-- Informasi Kontak -->
+        <div class="space-y-8">
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-600 p-2 rounded-lg"><i class="fas fa-map-marked-alt"></i></span>
+                    Lokasi Outlet
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                    <strong>Fuel Up Coffee HQ</strong><br>
+                    Jl. Kopi Nikmat No. 1, Jakarta Selatan<br>
+                    DKI Jakarta, Indonesia 12345
+                </p>
             </div>
 
-            <div class="md:col-span-2 space-y-6">
-                
-                <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6">Contact Information</h3>
-                    
-                    <div class="space-y-8">
-                        @foreach($contactInfo as $info)
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 {{ $info['bg'] }} {{ $info['color'] }} rounded-full flex items-center justify-center text-xl shrink-0">
-                                <i class="fas fa-{{ $info['icon'] }}"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-gray-800 text-sm">{{ $info['title'] }}</h4>
-                                @foreach($info['details'] as $detail)
-                                    <p class="text-gray-500 text-sm">{{ $detail }}</p>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition text-center">
+                    <div class="text-blue-600 text-3xl mb-3"><i class="fab fa-whatsapp"></i></div>
+                    <h4 class="font-bold text-gray-700">WhatsApp</h4>
+                    <p class="text-gray-500 text-sm mt-1">+62 812-3456-7890</p>
                 </div>
 
-                <div class="bg-gray-200 rounded-2xl h-48 flex items-center justify-center text-gray-500 shadow-inner">
-                    <div class="text-center">
-                        <i class="fas fa-map-marked-alt text-3xl mb-2"></i>
-                        <p class="text-sm font-medium">Map View</p>
-                        <p class="text-xs">123 Coffee Street, Jakarta</p>
-                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition text-center">
+                    <div class="text-blue-600 text-3xl mb-3"><i class="fas fa-envelope-open-text"></i></div>
+                    <h4 class="font-bold text-gray-700">Email</h4>
+                    <p class="text-gray-500 text-sm mt-1">hello@fuelup.com</p>
                 </div>
-
             </div>
         </div>
-    </main>
+
+        <!-- Form Kontak (Dummy) -->
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">Kirim Pesan</h3>
+
+            <form onsubmit="event.preventDefault(); alert('Terima kasih! Pesan Anda telah kami terima (Simulasi).');">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Nama Anda">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="email@anda.com">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Pesan</label>
+                    <textarea class="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Tulis pesanmu di sini..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
+                    Kirim Pesan
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
 @endsection

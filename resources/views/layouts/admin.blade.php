@@ -18,29 +18,36 @@
                 <i class="fas fa-mug-hot text-blue-500"></i> FUEL UP <span class="text-xs bg-blue-600 px-1.5 rounded text-white">Admin</span>
             </div>
         </div>
-        
+
         <div class="flex-grow overflow-y-auto py-6 px-4 space-y-2">
             <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-2">Main Menu</p>
-            
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'hover:bg-gray-800 hover:text-white transition' }}">
+
+            <!-- DASHBOARD LINK -->
+            <!-- Kamu bisa buat route dashboard nanti, sementara placeholder dulu atau arahkan ke home -->
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
                 <i class="fas fa-home w-5 text-center"></i> Dashboard
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
+            <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.products*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'hover:bg-gray-800 hover:text-white transition' }}">
                 <i class="fas fa-coffee w-5 text-center"></i> Products
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
-                <i class="fas fa-shopping-bag w-5 text-center"></i> Orders <span class="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+            <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.categories*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'hover:bg-gray-800 hover:text-white transition' }}">
+                <i class="fas fa-tags w-5 text-center"></i> Categories
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
+            <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.orders*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'hover:bg-gray-800 hover:text-white transition' }}">
+                <i class="fas fa-shopping-bag w-5 text-center"></i> Orders
+            </a>
+
+            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.users*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'hover:bg-gray-800 hover:text-white transition' }}">
                 <i class="fas fa-users w-5 text-center"></i> Customers
             </a>
         </div>
 
         <div class="p-4 border-t border-gray-800">
-            <form action="{{ route('logout') }}" method="POST">
+            <!-- Pastikan route logout sudah ada, kalau belum bisa pakai form kosong dulu -->
+            <form action="#" method="POST">
                 @csrf
                 <button class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600 text-white py-2 rounded-lg transition">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -54,7 +61,7 @@
         <!-- TOP HEADER -->
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6">
             <button class="md:hidden text-gray-600 text-xl"><i class="fas fa-bars"></i></button>
-            
+
             <div class="ml-auto flex items-center gap-4">
                 <div class="text-right hidden sm:block">
                     <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin' }}</p>
