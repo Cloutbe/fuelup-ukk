@@ -47,7 +47,7 @@
 
         <div class="p-4 border-t border-gray-800">
             <!-- Pastikan route logout sudah ada, kalau belum bisa pakai form kosong dulu -->
-            <form action="#" method="POST">
+           <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600 text-white py-2 rounded-lg transition">
                     <i class="fas fa-sign-out-alt"></i> Logout

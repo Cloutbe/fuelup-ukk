@@ -3,54 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product; // Jangan lupa import Model Product
-use App\Models\Category; // Import Model Category
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth; // <--- WAJIB IMPORT INI
 
 class HomeController extends Controller
 {
-    // HALAMAN DEPAN (LANDING PAGE)
+    // HALAMAN UTAMA (LANDING PAGE)
     public function index()
     {
-        // Ambil 3 produk terbaru untuk ditampilkan di bagian "Trending"
-        $products = Product::latest()->filter(request(['search', 'category']))->get();
+        $trendingProducts = Product::latest()->take(6)->get();
+        $categories = Category::all();
+
+        return view('client.landing', compact('trendingProducts', 'categories'));
+    }
+
+    // HALAMAN MENU (KATALOG LENGKAP)
+    public function menu()
+    {
+        $products = Product::latest()
+                    ->filter(request(['search', 'category']))
+                    ->paginate(9);
 
         $categories = Category::all();
 
-        // Arahkan ke view client/landing dan kirim datanya
-        return view('client.landing', compact('products', 'categories'));
+        return view('client.menu', compact('products', 'categories'));
     }
 
-    // DASHBOARD USER (Setelah Login)
-    public function dashboard()
-    {
-        // Bisa diarahkan ke landing page juga, atau dashboard khusus
-        $products = Product::latest()->take(3)->get();
-        return view('client.landing', compact('products'));
-    }
+    public function dashboard() { return $this->index(); }
 
-    // MENU PAGE (Opsional, jika kamu mau buat halaman menu terpisah)
-    public function menu()
-    {
-        $products = Product::all(); // Ambil semua produk
-        // Kamu bisa buat view client.menu nanti
-        return view('client.landing', compact('products')); // Sementara arahkan ke landing dulu
-    }
-
-    public function about()
-    {
-        return view('client.about'); // Pastikan file view-nya ada
-    }
-
-    public function contact()
-    {
-        return view('client.contact'); // Pastikan file view-nya ada
-    }
-
+    // === PERBAIKAN DI SINI ===
     public function cart()
     {
-        // Ambil data keranjang user yang sedang login
-        $carts = \App\Models\Cart::with('product')->where('user_id', \Illuminate\Support\Facades\Auth::id())->get();
+        // Kita gunakan Auth::id() yang lebih stabil daripada auth()->id()
+        $userId = Auth::id();
+
+        // Jika ada userId (Login), ambil datanya. Jika tidak, buat koleksi kosong.
+        $carts = $userId
+            ? Cart::with('product')->where('user_id', $userId)->get()
+            : collect();
+
         return view('client.cart', compact('carts'));
     }
+    // ==========================
 
+    public function about() { return view('client.about'); }
+    public function contact() { return view('client.contact'); }
 }
